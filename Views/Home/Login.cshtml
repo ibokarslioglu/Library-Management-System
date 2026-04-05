@@ -1,0 +1,73 @@
+@{
+    ViewData["Title"] = "Giris Yap";
+}
+@model rezervation.Models.User
+
+<section class="auth-page">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1>Kutuphane Rezervasyon Sistemi</h1>
+            <p>Hesabiniza giris yapin veya yeni hesap olusturun.</p>
+        </div>
+
+        <div class="auth-tabs" role="tablist" aria-label="Giris Sekmeleri">
+            <button id="tab-register" class="auth-tab is-active" type="button" data-target="panel-register">Hesap Olustur</button>
+            <button id="tab-login" class="auth-tab" type="button" data-target="panel-login">Giris Yap</button>
+        </div>
+
+        <div id="panel-register" class="auth-panel is-active" role="tabpanel" aria-labelledby="tab-register">
+            <form asp-action="CreateUser" asp-controller="Home" method="post" class="auth-form">
+                <div class="mb-3">
+                    <label asp-for="name" class="form-label">Isim</label>
+                    <input asp-for="name" class="form-control" type="text" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="surname" class="form-label">Soyisim</label>
+                    <input asp-for="surname" class="form-control" type="text" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="studentNumber" class="form-label">Ogrenci Numarasi</label>
+                    <input asp-for="studentNumber" class="form-control" type="number" />
+                </div>
+                <div class="mb-4">
+                    <label asp-for="password" class="form-label">Sifre</label>
+                    <input asp-for="password" class="form-control" type="password" />
+                </div>
+                <button class="btn app-btn-primary w-100" type="submit">Kayit Olustur</button>
+            </form>
+        </div>
+
+        <div id="panel-login" class="auth-panel" role="tabpanel" aria-labelledby="tab-login">
+            <form asp-action="UserLogin" asp-controller="Home" method="post" class="auth-form">
+                <div class="mb-3">
+                    <label asp-for="studentNumber" class="form-label">Ogrenci Numarasi</label>
+                    <input asp-for="studentNumber" class="form-control" type="number" />
+                </div>
+                <div class="mb-4">
+                    <label asp-for="password" class="form-label">Sifre</label>
+                    <input asp-for="password" class="form-control" type="password" />
+                </div>
+                <button class="btn app-btn-primary w-100" type="submit">Giris Yap</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        (function () {
+            const tabs = document.querySelectorAll(".auth-tab");
+            const panels = document.querySelectorAll(".auth-panel");
+
+            tabs.forEach((tab) => {
+                tab.addEventListener("click", function () {
+                    const targetId = this.getAttribute("data-target");
+                    tabs.forEach((t) => t.classList.remove("is-active"));
+                    panels.forEach((p) => p.classList.remove("is-active"));
+                    this.classList.add("is-active");
+                    document.getElementById(targetId).classList.add("is-active");
+                });
+            });
+        })();
+    </script>
+}

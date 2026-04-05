@@ -1,0 +1,68 @@
+@{
+    ViewData["Title"] = "Anasayfa";
+}
+
+<section class="landing-page">
+    <div class="landing-hero">
+        <h1 class="landing-title">E-Kütüphane Rezervasyon Sistemine Hoş Geldiniz</h1>
+        <p class="landing-subtitle">
+            Kitap arayın, müsait olanları rezerve edin ve ödünç süreçlerinizi tek yerden yönetin.
+        </p>
+    </div>
+
+    <div class="landing-search-card">
+        <form asp-controller="Home" asp-action="BookSearch" method="get" class="landing-search-form">
+            <label class="visually-hidden" for="landingBookSearch">Kitap adı</label>
+            <input id="landingBookSearch"
+                   class="form-control landing-search-input"
+                   type="text"
+                   name="BookName"
+                   placeholder="Kitap adını yazın (örnek: Suç ve Ceza, Simyacı...)"
+                   autocomplete="off" />
+            <button class="btn app-btn-primary landing-search-btn" type="submit">Ara</button>
+        </form>
+        <p class="landing-search-hint">
+            Arama sonuçları rezervasyon sayfasında listelenir. Hesabınız yoksa önce
+            <a asp-controller="Home" asp-action="Login">kayıt olabilir</a> veya
+            <a asp-controller="Home" asp-action="Login">giriş yapabilirsiniz</a>.
+        </p>
+    </div>
+
+    <div class="home-announcements">
+        <h2 class="home-announcements-title">Duyurular</h2>
+        <ul class="home-announcements-list">
+            <li class="home-announcement">
+                <span class="home-announcement-date">2 Ocak 2026</span>
+                <strong>Çalışma saatleri</strong>
+                <p>
+                    Kütüphane 6–10 Ocak tarihleri arasında bakım nedeniyle hafta içi saat 17:00’de kapanacaktır.
+                    Hafta sonu çalışma saatleri değişmemiştir (09:00–18:00).
+                </p>
+            </li>
+            <li class="home-announcement">
+                <span class="home-announcement-date">28 Aralık 2025</span>
+                <strong>Rezervasyon ve iade süreleri</strong>
+                <p>
+                    Kitap rezervasyon süresi 7 gün, ödünç süresi 14 gündür. Süre dolmadan iade edilmemesi
+                    halinde hesabınızda gecikme uyarısı görüntülenebilir; detaylar için danışma masasına başvurun.
+                </p>
+            </li>
+            <li class="home-announcement">
+                <span class="home-announcement-date">15 Aralık 2025</span>
+                <strong>Yeni koleksiyon</strong>
+                <p>
+                    Bilim ve teknoloji bölümüne 85 yeni basım eklendi. Arama kutusundan kitap adı veya yazar adıyla
+                    arama yaparak listeyebilirsiniz.
+                </p>
+            </li>
+            <li class="home-announcement">
+                <span class="home-announcement-date">3 Aralık 2025</span>
+                <strong>Sessiz çalışma alanı</strong>
+                <p>
+                    Ana binadaki sessiz çalışma salonu geçici olarak B Blok 2. katta hizmet vermektedir.
+                    Rezervasyonlu çalışma masaları için kütüphane görevlileriyle iletişime geçebilirsiniz.
+                </p>
+            </li>
+        </ul>
+    </div>
+</section>

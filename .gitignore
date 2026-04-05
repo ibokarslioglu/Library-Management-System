@@ -1,0 +1,28 @@
+## Build
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## Visual Studio / VS Code
+.vs/
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+## Rider
+.idea/
+
+## OS
+.DS_Store
+Thumbs.db
+
+## NuGet
+*.nupkg
+**/packages/*
+!**/packages/build/
+
+## Local env (optional secrets)
+appsettings.*.local.json
+*.local.json

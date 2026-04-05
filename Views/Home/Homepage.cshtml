@@ -1,0 +1,103 @@
+@{
+    ViewData["Title"] = "Rezervasyon";
+}
+@model rezervation.Models.HomepageViewModel
+
+<section class="reservation-page">
+    <div class="reservation-toolbar">
+        <h1>Kitap Rezervasyonu</h1>
+        <form asp-action="Logout" asp-controller="Home" method="post">
+            <button class="btn app-btn-secondary" type="submit">Cikis Yap</button>
+        </form>
+    </div>
+
+    <div class="search-card search-card-wide">
+        <form asp-action="BookSearch" asp-controller="Home" method="get" class="row g-2 align-items-stretch">
+            <div class="col-12 col-lg-10">
+                <input class="form-control search-input-tall" type="text" asp-for="BookName" placeholder="Kitap adini girin" />
+            </div>
+            <div class="col-12 col-lg-2 d-grid">
+                <button class="btn app-btn-primary search-btn-wide" type="submit">Ara</button>
+            </div>
+        </form>
+    </div>
+
+    @if (Model.PopularBooks is { Count: > 0 })
+    {
+        <div class="popular-books-section">
+            <h2 class="popular-books-title">En çok tercih edilen kitaplar</h2>
+            <p class="popular-books-subtitle">Rezervasyon sayısına göre sıralanır; henüz rezervasyon yoksa katalogdan kitaplar listelenir.</p>
+            <div class="popular-books-grid">
+                @foreach (var book in Model.PopularBooks)
+                {
+                    <article class="popular-book-card">
+                        <div class="popular-book-meta">
+                            <h3 class="popular-book-name">@book.BookName</h3>
+                            <p class="popular-book-author">@book.AuthorName</p>
+                            <span class="popular-book-genre">@book.Genre</span>
+                        </div>
+                        <div class="popular-book-footer">
+                            @if (book.ReservationCount > 0)
+                            {
+                                <span class="popular-book-badge">@book.ReservationCount rezervasyon</span>
+                            }
+                            else
+                            {
+                                <span class="popular-book-badge popular-book-badge-muted">Katalog</span>
+                            }
+                            <a class="btn btn-sm app-btn-outline"
+                               asp-action="BookSearch"
+                               asp-controller="Home"
+                               asp-route-BookName="@book.BookName">Bu kitabı ara</a>
+                        </div>
+                    </article>
+                }
+            </div>
+        </div>
+    }
+
+    @if (Model.SearchResult != null)
+    {
+        @using (Html.BeginForm("ReserveBook", "Home", FormMethod.Post, new { @class = "result-card" }))
+        {
+            <div class="table-responsive">
+                <table class="table table-striped align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Kitap Ismi</th>
+                            <th>Yazar Ismi</th>
+                            <th>Sayfa Sayisi</th>
+                            <th>Tur</th>
+                            <th>Islem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Model.SearchResult.BookName</td>
+                            <td>@Model.SearchResult.AuthorName</td>
+                            <td>@Model.SearchResult.PageNumber</td>
+                            <td>@Model.SearchResult.Genre</td>
+                            <td>
+                                @Html.Hidden("Id", Model.SearchResult.Id)
+                                <button type="submit" class="btn app-btn-primary btn-sm">Rezerve Et</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="result-card result-empty">
+            @if (!string.IsNullOrWhiteSpace(Model.BookName))
+            {
+                <text>&quot;@Model.BookName&quot; için sonuç bulunamadı. Farklı bir kitap adı deneyin veya yukarıdaki popüler kitaplardan birini seçebilirsiniz.</text>
+            }
+            else
+            {
+                <text>Arama yaptiginizda kitap bilgileri burada gorunecek.</text>
+            }
+        </div>
+    }
+</section>
